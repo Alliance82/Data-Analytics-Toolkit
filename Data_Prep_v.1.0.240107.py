@@ -1,14 +1,15 @@
 # Created By Alliance82
 # Created On 1/7/2024
 # Project to help prepare data and clean it then reoutput it
+# Currently dynamically reads .xlsx or .csv files and reads them into a DataFrame
 import pandas as pd
 import numpy as np 
 import sys
 
 # Update the file path, file name, extension, and sheet name below 
 # The program will determine what type of pandas read commands to execute
-file_path = r'Your File Here'
-file_name = 'jobcreationdata'
+file_path = r'Your File Path Here'
+file_name = 'Your file name here'
 extension = '.csv'
 sheet = 'Sheet1'
 
