@@ -10,7 +10,7 @@ import sys
 # The program will determine what type of pandas read commands to execute
 file_path = r'Your File Path Here'
 file_name = 'Your file name here'
-extension = '.csv'
+extension = '.xlsx'
 sheet = 'Sheet1'
 
 # Produces the full file path including name and extension that will be read into the DataFrame
@@ -40,3 +40,10 @@ else:
     
 print(df)    
 print(df.columns)
+
+# Removes the whitespace from the Column names
+df.columns = df.columns.str.strip()
+print(df.columns)
+
+# Outputs an excel file of the same name of the original file, with the cleaned columns
+df.to_excel(full_path, index=False, sheet_name=sheet)
