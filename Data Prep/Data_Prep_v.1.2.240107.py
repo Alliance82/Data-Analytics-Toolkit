@@ -1,14 +1,22 @@
 # Created By Alliance82
 # Created On 1/7/2024
 # Project to help prepare data and clean it then reoutput it
-# Currently dynamically reads .xlsx or .csv files and reads them into a DataFrame
 import pandas as pd
 import numpy as np 
 import sys
 
+class Clean:
+    # Clean data points using array, keep only alphanumeric and non-leading/trailing whitespace
+    def clean_data(df):
+        if isinstance(df, str):
+            df = df.strip()
+            df = ''.join(char for char in df if char.isalnum() or char.isspace())  # Remove special characters
+        return df
+
+
 # Update the file path, file name, extension, and sheet name below 
 # The program will determine what type of pandas read commands to execute
-file_path = r'Your File Path Here'
+file_path = r'Your path here'
 file_name = 'Your file name here'
 extension = '.xlsx'
 sheet = 'Sheet1'
@@ -38,12 +46,14 @@ if file_info:
 else:
     print(f"Unsupported file extension: {extension}")
     
-print(df)    
 print(df.columns)
 
 # Removes the whitespace from the Column names
 df.columns = df.columns.str.strip()
 print(df.columns)
+
+# Apply the clean_data function to all elements of the DataFrame using the map
+df = df.apply(lambda col: col.map(Clean.clean_data) if col.dtype == 'O' else col)
 
 # Outputs an excel file of the same name of the original file, with the cleaned columns
 df.to_excel(full_path, index=False, sheet_name=sheet)
